@@ -10,6 +10,9 @@ GEM
       git (>= 1.2.5)
       rake
     linecache (0.43)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.0.23)
     rake (0.8.7)
     rcov (0.9.9)
     rspec (2.1.0)
@@ -34,6 +37,7 @@ DEPENDENCIES
   activesupport (~> 3.0.3)
   bundler (~> 1.0.0)
   jeweler (~> 1.5.1)
+  net-sftp
   rcov
   rspec (~> 2.1.0)
   ruby-debug

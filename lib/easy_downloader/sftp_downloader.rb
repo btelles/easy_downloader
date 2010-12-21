@@ -16,7 +16,7 @@ module EasyDownloader
           result.starting_path(path)
           options.download_count += 1 if sftp.download!("#{options.remote_path}#{path}", "#{options.local_path}#{path}")
           result.finished_path(path)
-          files_downloaded << "#{options.local_path}#{path}"
+          result.files_downloaded << "#{options.local_path}#{path}"
         end
       end
 

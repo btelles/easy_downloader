@@ -1,9 +1,10 @@
 module EasyDownloader
   class Result
-    attr_accessor :errors
+    attr_accessor :errors, :files_downloaded
 
     def initialize
       @header, @started, @finished, @errors= ''
+      @files_downloaded = []
       @progress = ["Progress:"]
     end
 

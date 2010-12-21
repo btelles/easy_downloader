@@ -6,6 +6,7 @@ require 'easy_downloader/http_downloader'
 require 'net/sftp'
 module EasyDownloader
 
+  class InvalidRemoteDirectory < Exception; end
   def self.download(*options)
     Downloader.new(*options)
   end
@@ -35,13 +36,15 @@ module EasyDownloader
     def initialize(*options)
       @options= Options.new(*options)
       download
+      @result = @options.result
+      @files  = @result.files_downloaded
     end
 
     private
 
     def download
       begin
-        case @options[:type].to_sym
+        case @options.type
         when :ftp
           ftp_download(@options)
         when :http
@@ -50,19 +53,19 @@ module EasyDownloader
           sftp_download(@options)
         end
 
-      rescue
-        @result.errors= <<-ERROR_MESSAGE
-  There was a problem downloading from #{@options[:host]}.
+      rescue Exception => e
+        @options.result.errors= <<-ERROR_MESSAGE
+  There was a problem downloading from #{@options.host}.
   The error we got was:
-      #{$ERROR_INFO.inspect}
-      #{$ERROR_INFO.message}
+      #{e.message}
+      #{e.backtrace.inspect}
   We tried connecting with:
-  host: #{@options[:host]}
-  user: #{@options[:user]}
+  host: #{@options.host}
+  user: #{@options.user}
   pass: [filtered]
-  directory_path: #{@options[:remote_path]}
-  file_pattern: #{@options[:remote_pattern]}
-  destination: #{@destination_dir}
+  directory_path: #{@options.remote_path}
+  file_pattern: #{@options.remote_pattern}
+  destination: #{@options.local_path}
         ERROR_MESSAGE
       end
     end

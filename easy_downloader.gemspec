@@ -30,6 +30,12 @@ Gem::Specification.new do |s|
     "VERSION",
     "easy_downloader.gemspec",
     "lib/easy_downloader.rb",
+    "lib/easy_downloader/ftp_downloader.rb",
+    "lib/easy_downloader/http_downloader.rb",
+    "lib/easy_downloader/options.rb",
+    "lib/easy_downloader/result.rb",
+    "lib/easy_downloader/sftp_downloader.rb",
+    "spec/easy_downloader/options_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/btelles/easy_downloader}
@@ -48,6 +54,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.3"])
+      s.add_runtime_dependency(%q<net-sftp>, [">= 0"])
       s.add_development_dependency(%q<ruby-debug>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.1.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -56,6 +63,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<yard>, [">= 0"])
     else
       s.add_dependency(%q<activesupport>, ["~> 3.0.3"])
+      s.add_dependency(%q<net-sftp>, [">= 0"])
       s.add_dependency(%q<ruby-debug>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.1.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -65,6 +73,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<activesupport>, ["~> 3.0.3"])
+    s.add_dependency(%q<net-sftp>, [">= 0"])
     s.add_dependency(%q<ruby-debug>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.1.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])

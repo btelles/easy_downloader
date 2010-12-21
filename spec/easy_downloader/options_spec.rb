@@ -18,5 +18,9 @@ describe EasyDownloader::Options do
         option.send(exposable_option).should == "hi there #{index}"
       end
     end
+    it "exposes type as a symbol" do
+      option = EasyDownloader::Options.new(:type => "hithere")
+      option.type.should == :hithere
+    end
   end
 end
