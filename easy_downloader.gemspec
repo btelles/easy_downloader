@@ -5,9 +5,9 @@
 
 Gem::Specification.new do |s|
   s.name = %q{easy_downloader}
-  s.version = "0.0.0"
+  s.version = "0.0.1.alpha"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bernardo Telles"]
   s.date = %q{2010-12-21}
   s.description = %q{ EasyDownloader reduces the amount of work required to setup and check for errors when downloading from another location. This 
@@ -23,10 +23,12 @@ Gem::Specification.new do |s|
     ".document",
     ".rspec",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "easy_downloader.gemspec",
     "lib/easy_downloader.rb",
     "spec/easy_downloader_spec.rb",
     "spec/spec_helper.rb"
