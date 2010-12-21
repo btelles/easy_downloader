@@ -1,9 +1,63 @@
 = easy_downloader
 
-Description goes here.
+This is a dead simple, one-method downloader, with friendly error messages.
+
+EasyDownloader reduces the amount of work required to setup and check for errors when downloading from another location. This
+is useful when, for example, a client wants to you to pick a file up from their FTP, SFTP, or regular website on a nightly basis.
+EasyDownloader gives you a one-method means of downloading those files, returns with a friendly error message if it fails
+(geared at cron job notifications), or returns an array of file names it downloaded.
+
+== Example
+
+First, add the following to your Gemfile:
+
+  gem 'easy_downloader'
+
+Then, in your application:
+
+  my_results = EasyDownloader.download(
+      :type           => :ftp,
+      :host           => '127.0.0.1',
+      :user           => 'app',
+      :password       => 'example'
+      :remote_path    => '/some/directory/IWantToChangeTo'
+      :remote_pattern => '.*\.txt'
+      :local_path     => Rails.root+'/my_downloaded_stuff/'
+      )
+
+  my_results.results
+    => "We found 1 file(s) to download with the following names:
+        #1. test_file.txt
+        Started downloading at Tue Dec 21 16:04:46 -0500 2010
+        Progress:
+        Starting to download test_file.txt
+        Finished downloading test_file.txt
+        Finished downloading at Tue Dec 21 16:04:46 -0500 2010
+        Downloaded 1 file(s)"
+
+  my_results.files
+    => ['test_file.txt']
+
+The returned object only has two attributes (did I mention this was dead simple):
+ 1. result
+ 2. files
+
+The available keys are:
+
+  :type =>  (required) The protocal used to download the file. One of :sftp, :ftp or :http.
+  :host =>  (required) the domain of the remote server (source)
+  :remote_path => a relative path to "cd" into when we first access the remote server
+  :remote_pattern => a glob pattern that will select only the files we want to download.%
+     see Ruby's core API if you are not familiar with this concept.
+
+     NOTE: for *ftp* downloads, this matches a regular expression to the name of files in the current directory.
+           for *Sftp* downloads, this uses the 'glob' pattern as mentioned above.
+
+  :user =>  a username or login used for authenticating on the server
+  :password =>  a password that, in combination with the user, will grant access to the remote server/host
 
 == Contributing to easy_downloader
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
