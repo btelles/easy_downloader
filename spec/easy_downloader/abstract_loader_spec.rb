@@ -14,18 +14,25 @@ describe EasyDownloader::AbstractLoader do
     before do
       subject.stub(:execute_load => true)
     end
+
     it "sets the start time" do
       subject.execute
       subject.result.started_at.should be > (3.seconds.ago)
     end
+
     it "executes the load" do
       subject.should_receive :execute_load
       subject.execute
     end
+
     it "sets the finished time" do
       subject.execute
       subject.result.finished_at.should be > (3.seconds.ago)
     end
 
+    it "sets the number of files loaded to 0 when starting out" do
+      subject.execute
+      subject.result.loaded.should == 0
+    end
   end
 end

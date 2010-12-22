@@ -1,4 +1,5 @@
-require 'activesupport'
+require 'active_support'
+require 'active_support/core_ext'
 require 'easy_downloader/result'
 require 'easy_downloader/options'
 require 'easy_downloader/sftp'

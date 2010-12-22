@@ -15,7 +15,7 @@ module EasyDownloader
           ftp.get(path, "#{options.local_path}#{path}")
           options.load_count = options.load_count + 1
           options.result.finished_path(path)
-          options.result.files_downloaded << "#{options.local_path}#{path}"
+          options.result.files_loaded << "#{options.local_path}#{path}"
         end
       end
     end
@@ -25,17 +25,17 @@ module EasyDownloader
 
         change_remote_dir(ftp)
 
-        files = Dir[options.remote_path, options.remote_pattern]
-        options.result.found(files.size, files.map(&:name))
+        files = local_files_list(options)
+        options.result.found(files.size, files)
 
         files.each do |path|
           options.result.starting_path(path)
           if options.remote_file
             ftp.put(path, options.remote_file)
-            options.result.files_downloaded << options.remote_file
+            options.result.files_loaded << options.remote_file
           else
             ftp.put(path)
-            options.result.files_downloaded << File.basename(path)
+            options.result.files_loaded << File.basename(path)
           end
           options.load_count= options.load_count + 1
           options.result.finished_path(path)
@@ -52,7 +52,7 @@ module EasyDownloader
     end
 
     def change_remote_dir(ftp)
-      if options.remote_path
+      if options.remote_path.present?
         begin
           ftp.chdir(options.remote_path)
         rescue InvalidRemoteDirectory
@@ -62,6 +62,15 @@ module EasyDownloader
 
     def ftp_password_option(password)
       password ? password : nil
+    end
+
+
+    def remote_files_list(options)
+      if options.remote_file
+        [options.remote_file]
+      else
+        Dir[options.remote_path, options.remote_pattern]
+      end
     end
   end
 end

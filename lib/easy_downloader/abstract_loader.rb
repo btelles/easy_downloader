@@ -34,5 +34,17 @@ module EasyDownloader
     def error_message(options, e)
       raise NotImplementedError.new("#{self.class.name} does not have an 'error_message' method.")
     end
+
+    def local_files_list(options)
+      if options.local_file
+        [options.local_file]
+      else
+        Dir[options.local_path, options.local_pattern]
+      end
+    end
+
+    def options
+      @options
+    end
   end
 end
