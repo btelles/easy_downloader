@@ -1,10 +1,10 @@
 module EasyDownloader
   class Result
-    attr_accessor :errors, :files_downloaded
+    attr_accessor :errors, :files_loaded
 
     def initialize
       @header, @started, @finished, @errors= ''
-      @files_downloaded = []
+      @files_loaded = []
       @progress = ["Progress:"]
     end
 
@@ -20,7 +20,7 @@ module EasyDownloader
 
     def found(total_found, file_names)
       @found = total_found
-      @header= "We found #{total_found} file(s) to download with the following names: \n"
+      @header= "We found #{total_found} file(s) to load with the following names: \n"
       @found_list = file_names
     end
 
@@ -28,21 +28,31 @@ module EasyDownloader
       @started= Time.now
     end
 
+    def started_at; @started; end
+
     def finished
       @finished= Time.now
     end
 
-    def downloaded(total)
-      @downloaded = total
-      @footer= "Downloaded #{total} file(s)"
+    def finished_at; @finished; end
+
+
+
+    def loaded(total = false)
+      if total
+        @loaded = total
+        @footer= "Loaded #{total} file(s)"
+      else
+        @loaded
+      end
     end
 
     def starting_path(path)
-      @progress << "Starting to download #{path}"
+      @progress << "Starting to load #{path}"
     end
 
     def finished_path(path)
-      @progress << "Finished downloading #{path}"
+      @progress << "Finished loading #{path}"
     end
 
     private 
@@ -60,11 +70,11 @@ module EasyDownloader
     end
 
     def started_string
-      "Started downloading at #{@started}"
+      "Started loading at #{@started}"
     end
 
     def finished_string
-      "Finished downloading at #{@finished}"
+      "Finished loading at #{@finished}"
     end
 
   end

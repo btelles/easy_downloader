@@ -1,15 +1,17 @@
 require 'active_support/core_ext/array/extract_options'
 module EasyDownloader
   class Options
-    attr_accessor :files, :successful, :result, :download_count,
-                  :type, :host, :user, :password, :local_path,
-                  :destination_dir, :remote_path, :remote_pattern
+    attr_accessor :files, :successful, :result, :load_count,
+                  :type, :host, :user, :password,
+                  :local_path, :remote_path,
+                  :local_pattern, :remote_pattern,
+                  :local_file, :remote_file
 
     def initialize(*options)
       @files = []
       @successful      = false
       @result          = Result.new
-      @download_count = 0
+      @load_count = 0
       @options = options
 
       options.extract_options!.each do |key, value|
@@ -21,10 +23,20 @@ module EasyDownloader
       @type.to_sym
     end
 
+    def remote_path
+      to_dir_path(@remote_path)
+    end
+
     def local_path
-      @local_path =~ /\/$/ ?
-        @local_path :
-        @local_path + '/'
+      to_dir_path(@local_path)
+    end
+
+    def to_dir_path(path)
+      if path
+        path =~ /\/$/ ?  path : path + '/'
+      else
+        ''
+      end
     end
   end
 end
