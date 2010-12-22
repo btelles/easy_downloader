@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{easy_downloader}
-  s.version = "0.0.2.alpha"
+  s.version = "0.0.3.alpha"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bernardo Telles"]
-  s.date = %q{2010-12-21}
+  s.date = %q{2010-12-22}
   s.description = %q{ EasyDownloader reduces the amount of work required to setup and check for errors when downloading from another location. This 
                       is useful when, for example, a client wants to you to pick a file up from their FTP, SFTP, or regular website on a nightly basis.
                       EasyDownloader gives you a one-method means of downloading those files, returns with a friendly error message if it fails
@@ -30,11 +30,15 @@ Gem::Specification.new do |s|
     "VERSION",
     "easy_downloader.gemspec",
     "lib/easy_downloader.rb",
-    "lib/easy_downloader/ftp_downloader.rb",
-    "lib/easy_downloader/http_downloader.rb",
+    "lib/easy_downloader/abstract_loader.rb",
+    "lib/easy_downloader/downloader.rb",
+    "lib/easy_downloader/ftp.rb",
+    "lib/easy_downloader/http.rb",
     "lib/easy_downloader/options.rb",
     "lib/easy_downloader/result.rb",
-    "lib/easy_downloader/sftp_downloader.rb",
+    "lib/easy_downloader/sftp.rb",
+    "lib/easy_downloader/uploader.rb",
+    "spec/easy_downloader/abstract_loader_spec.rb",
     "spec/easy_downloader/options_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -44,6 +48,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{A dead simple, one-method downloader, with friendly error messages}
   s.test_files = [
+    "spec/easy_downloader/abstract_loader_spec.rb",
     "spec/easy_downloader/options_spec.rb",
     "spec/spec_helper.rb"
   ]

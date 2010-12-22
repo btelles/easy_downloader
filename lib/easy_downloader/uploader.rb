@@ -3,11 +3,7 @@ module EasyDownloader
 
     private
 
-    def execute_load
-      [:ftp, :http, :sftp].include?(@options.type) ?
-        send("#{@options.type.to_s}_upload".to_sym, @options) :
-        raise(NotImplementedError.new("we don't have an uploader of this type."))
-    end
+    self.load_type='upload'
 
     def error_message(options, e)
       message = <<-ERROR_MESSAGE

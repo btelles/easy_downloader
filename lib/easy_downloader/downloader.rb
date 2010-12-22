@@ -3,16 +3,7 @@ module EasyDownloader
 
     private
 
-    def execute_load
-      case @options.type
-      when :ftp
-        ftp_download(@options)
-      when :http
-        http_download(@options)
-      when :sftp
-        sftp_download(@options)
-      end
-    end
+    self.load_type= 'download'
 
     def error_message(options, e)
       message = <<-ERROR_MESSAGE

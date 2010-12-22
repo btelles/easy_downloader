@@ -3,12 +3,21 @@ module EasyDownloader
 
     attr_reader :files, :result
 
+    class_attribute :load_type
+
     include Sftp
     include Ftp
     include Http
 
     def initialize(*options)
       @options= Options.new(*options)
+    end
+
+
+    def execute_load
+      [:ftp, :http, :sftp].include?(@options.type.to_sym) ?
+        send("#{@options.type}_#{self.class.load_type.to_s}".to_sym, @options) :
+        raise(NotImplementedError.new("we don't have an #{@options.type}er of this type."))
     end
 
     def execute
@@ -26,10 +35,6 @@ module EasyDownloader
     end
 
     private
-
-    def execute_load
-      raise NotImplementedError.new("#{self.class.name} does not have an 'execute_load' method.")
-    end
 
     def error_message(options, e)
       raise NotImplementedError.new("#{self.class.name} does not have an 'error_message' method.")

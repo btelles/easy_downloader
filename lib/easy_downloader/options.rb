@@ -1,8 +1,8 @@
 require 'active_support/core_ext/array/extract_options'
 module EasyDownloader
   class Options
-    attr_accessor :files, :successful, :result, :load_count,
-                  :type, :host, :user, :password,
+    attr_accessor :files, :successful, :result, :load_count, :type,
+                  :host, :user, :password,
                   :local_path, :remote_path,
                   :local_pattern, :remote_pattern,
                   :local_file, :remote_file
@@ -17,10 +17,6 @@ module EasyDownloader
       options.extract_options!.each do |key, value|
         send("#{key}=".to_sym, value) if respond_to?("#{key}=".to_sym)
       end
-    end
-
-    def type
-      @type.to_sym
     end
 
     def remote_path
