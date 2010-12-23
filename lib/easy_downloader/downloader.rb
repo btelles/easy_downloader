@@ -15,9 +15,11 @@ module EasyDownloader
         host: #{options.host}
         user: #{options.user}
         pass: [filtered]
-        directory_path: #{options.remote_path}
-        file_pattern: #{options.remote_pattern}
-        destination: #{options.local_path}
+        remote_file:    #{options.remote_file}
+        remote_path:    #{options.remote_path}
+        remote_pattern: #{options.remote_pattern}
+        local_path:     #{options.local_path}
+        local_file:     #{options.local_file}
               ERROR_MESSAGE
       message
     end
