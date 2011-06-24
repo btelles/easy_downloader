@@ -10,7 +10,7 @@ module EasyDownloader
 
         files.map(&:name).each do |path|
           options.result.starting_path(path)
-          options.download_count += 1 if sftp.download!("#{options.remote_path}#{path}", "#{options.local_path}#{path}")
+          options.load_count += 1 if sftp.download!("#{options.remote_path}#{path}", "#{options.local_path}#{path}")
           options.result.finished_path(path)
           options.result.files_downloaded << "#{options.local_path}#{path}"
         end
